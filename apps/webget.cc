@@ -18,6 +18,7 @@ void get_URL( const string& host, const string& path )
     socket.read(read);
     cout<<read;
   }
+}
 
 int main( int argc, char* argv[] )
 {

@@ -19,5 +19,4 @@ BraceWrapping:
   SplitEmptyFunction: false
   SplitEmptyRecord: false
   SplitEmptyNamespace: false
-PackConstructorInitializers: NextLine
-...
+

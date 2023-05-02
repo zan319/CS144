@@ -1,12 +1,28 @@
 #pragma once
 
 #include "byte_stream.hh"
-
+#include <cstdint>
+#include <map>
 #include <string>
+#include <set>
+#include <unordered_set>
 
 class Reassembler
 {
+private:
+  std::map<std::uint64_t, std::string>mapping {};
+  std::unordered_set<std::uint64_t> count {};
+  uint64_t index {0};
+  bool is_last {false};
 public:
+
+  Reassembler() = default;
+
+  bool to_close();
+
+  void add_count(uint64_t length, uint64_t first_index);
+  void delete_count(uint64_t length, uint64_t first_index);
+
   /*
    * Insert a new substring to be reassembled into a ByteStream.
    *   `first_index`: the index of the first byte of the substring
@@ -30,5 +46,5 @@ public:
   void insert( uint64_t first_index, std::string data, bool is_last_substring, Writer& output );
 
   // How many bytes are stored in the Reassembler itself?
-  uint64_t bytes_pending() const;
+  uint64_t bytes_pending() ;
 };

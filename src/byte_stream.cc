@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <string_view>
 #include <iostream>
-
+#include <sstream>
 #include "byte_stream.hh"
 
 using namespace std;
@@ -14,8 +14,11 @@ void Writer::push( string data )
   if(is_closed()||data.empty()||error_) {
     return;
   } 
-  int len = min (available_capacity(), data.length());
+  uint64_t len = min (available_capacity(), data.length());
   pushed += len;
+  // for(uint64_t i = 0; i < len; i++) {
+  //   queue_.push_back(data.at(i));
+  // }
   queue_.append(std::move(data.substr(0,len)));
   // std::cout << "Push: " << queue_ << std::endl;
 }
@@ -52,8 +55,28 @@ uint64_t Writer::bytes_pushed() const
 
 string_view Reader::peek() const
 {
+  // string temp(queue_.begin(),queue_.end());
+  // temp += queue_.front();
+  // for(uint64_t i = 0; i < queue_.size(); i++){
+  //   temp+=queue_[i];
+  // }
+  // stringstream os;
+  // if(bytes_buffered() > 0){
+  //   auto j = queue_.begin();
+  //   while(j != queue_.end()){
+  //     os << *j;
+  //     j++;
+  //   }
+  // }
+  // string temp = "";
+  // os >> temp;
+  // string_view ret(temp.begin(),temp.end());
+  // cout << temp <<endl;
+  // return ret;
+    // return{&queue_.front(),1};
+    return {queue_.begin(), queue_.end()};
   // Your code here.
-    return string_view(queue_.begin(), queue_.end());
+  // return string_view(queue_.begin(), queue_.end());
 }
 
 bool Reader::is_finished() const
@@ -70,10 +93,16 @@ bool Reader::has_error() const
 
 void Reader::pop( uint64_t len )
 {
-  int size = min(len, queue_.length());
+  uint64_t size = min(len, queue_.size());
   popped += size;
-  string ans =queue_.substr(size, queue_.length() - size);
-  queue_ = std::move(ans);
+  // for(uint64_t i = 0; i < size; i++){
+  //   if(!queue_.empty()){
+  //     queue_.pop_front();
+  //   }
+  // }
+  queue_.erase(0,len);
+  // string ans =queue_.substr(size, queue_.length() - size);
+  // queue_ = std::move(ans);
   // Your code here.
 }
 
@@ -87,4 +116,10 @@ uint64_t Reader::bytes_popped() const
 {
   // Your code here.
   return popped;
+}
+
+void ByteStream::print(){
+  for(uint64_t i = 0; i < queue_.size(); i++){
+    std::cout << queue_[i] << " ";
+  }
 }

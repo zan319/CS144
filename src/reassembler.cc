@@ -34,12 +34,14 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
     add_count(mapping[index].length(), index);
   }else if(first_index >= index&&first_index + data.length() - 1 <= index - 1 + cap){
     //data: from larger than index to smaller than available_capacity
-    mapping[first_index] = data;
-    add_count(mapping[first_index].length(), first_index);
+    if(mapping[first_index].length() < data.length()){
+      mapping[first_index] = data;
+      add_count(mapping[first_index].length(), first_index);
+    }
   }else if(first_index > index&&first_index + data.length() - 1 > index - 1 + cap){
     //data: from larger than index to available_capacity
     mapping[first_index] = data.substr(0, index + cap -first_index);
-    add_count(cap, first_index);
+    add_count(index + cap -first_index, first_index);
   }else{
     //data : from smaller than index to larger than available_capacity
     mapping[index] = data.substr(index-first_index,cap);

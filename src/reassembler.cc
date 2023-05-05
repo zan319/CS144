@@ -79,7 +79,7 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
         string part = sec->second.substr(index - sec->first);
 
         mapping[index] =std::move(part);
-        delete_count(sec->second.length()-part.length(), sec->first);
+        // delete_count(sec->second.length()-part.length(), sec->first);
         mapping.erase(sec->first);
 
         auto its = mapping.find(index);
@@ -120,7 +120,6 @@ void Reassembler::add_count(uint64_t length, uint64_t first_index) {
 }
 void Reassembler::delete_count(uint64_t length, uint64_t first_index){
   for(uint64_t i = 0; i< length; i++){
-    if(count.count(first_index + i) == 1)
       count.erase(first_index + i);
   }
 }

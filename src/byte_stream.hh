@@ -22,7 +22,6 @@ protected:
   bool error_ {false};
   uint64_t pushed {0};
   uint64_t popped {0};
-  void print();
 public:
   explicit ByteStream( uint64_t capacity );
 

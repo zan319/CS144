@@ -13,7 +13,7 @@ void get_URL( const string& host, const string& path )
   socket.connect(Address(host, "http"));
   string message = "GET "+path+" HTTP/1.1\r\nHost: "+host+"\r\nConnection: close\r\n\r\n";
   socket.write(message);
-  string read = "";
+  string read;
   while(!socket.eof()) {
     socket.read(read);
     cout<<read;

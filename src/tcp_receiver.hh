@@ -3,10 +3,14 @@
 #include "reassembler.hh"
 #include "tcp_receiver_message.hh"
 #include "tcp_sender_message.hh"
+#include "wrapping_integers.hh"
+#include <cstdint>
 
 class TCPReceiver
 {
 public:
+  uint64_t checkpoint;
+  Wrap32 sqno;
   /*
    * The TCPReceiver receives TCPSenderMessages, inserting their payload into the Reassembler
    * at the correct stream index.

@@ -19,7 +19,7 @@ void Writer::push( string data )
   // for(uint64_t i = 0; i < len; i++) {
   //   queue_.push_back(data.at(i));
   // }
-  queue_.append(std::move(data.substr(0,len)));
+  queue_.append(data.substr(0,len));
   // std::cout << "Push: " << queue_ << std::endl;
 }
 
@@ -55,28 +55,9 @@ uint64_t Writer::bytes_pushed() const
 
 string_view Reader::peek() const
 {
-  // string temp(queue_.begin(),queue_.end());
-  // temp += queue_.front();
-  // for(uint64_t i = 0; i < queue_.size(); i++){
-  //   temp+=queue_[i];
-  // }
-  // stringstream os;
-  // if(bytes_buffered() > 0){
-  //   auto j = queue_.begin();
-  //   while(j != queue_.end()){
-  //     os << *j;
-  //     j++;
-  //   }
-  // }
-  // string temp = "";
-  // os >> temp;
-  // string_view ret(temp.begin(),temp.end());
-  // cout << temp <<endl;
-  // return ret;
     // return{&queue_.front(),1};
     return {queue_.begin(), queue_.end()};
   // Your code here.
-  // return string_view(queue_.begin(), queue_.end());
 }
 
 bool Reader::is_finished() const
@@ -116,10 +97,4 @@ uint64_t Reader::bytes_popped() const
 {
   // Your code here.
   return popped;
-}
-
-void ByteStream::print(){
-  for(uint64_t i = 0; i < queue_.size(); i++){
-    std::cout << queue_[i] << " ";
-  }
 }

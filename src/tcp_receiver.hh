@@ -9,8 +9,12 @@
 class TCPReceiver
 {
 public:
-  uint64_t checkpoint;
-  Wrap32 sqno;
+   
+  // uint64_t ab_sqno = 0;
+  Wrap32 zero_point{0};
+  uint64_t reassembler_in{0};
+  bool FIN_set {false};
+  bool SYN_set {false};
   /*
    * The TCPReceiver receives TCPSenderMessages, inserting their payload into the Reassembler
    * at the correct stream index.

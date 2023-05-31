@@ -57,7 +57,6 @@ void Reassembler::insert( uint64_t first_index, string data, bool is_last_substr
       // cout << "Delete : " << it->second << endl;
       // cout << "Set_size : " << count.size() <<endl;
       // cout <<"delete it ?"<<  output.available_capacity() << "  " << it->second.size() << endl;
-    // if(output.available_capacity() >= it->second.size()){
       output.push(it->second);
       // cout <<"Output :    from : "<< it->first<<"    to : " <<it->second.length() - 1 + it->first << endl;
       // cout << "Now : "<<count.size() <<endl;
